@@ -57,13 +57,18 @@ jobs:
       - name: Terraform Validate
         working-directory: ./terraform
         run: terraform validate
-
+      - name: Package Lambda function
+        run: |
+            cd modules/lambda
+            zip -r lambda.zip app.py requirements.txt
+            cd ../..
       - name: Terraform Plan
         working-directory: ./terraform
         run: |
           terraform plan \
             -var-file="environments/${{ matrix.environment }}.tfvars" \
             -out=${{ matrix.environment }}.tfplan
+            
 
       - name: Upload Plan
         uses: actions/upload-artifact@v4
