@@ -1,24 +1,24 @@
-data "archive_file" "lambda" {
-  type        = "zip"
-  source_dir  = var.source_dir
-  output_path = "${path.module}/lambda.zip"
-}
-
+# data "archive_file" "lambda" {
+#   type        = "zip"
+#   source_dir  = var.source_dir
+#   output_path = "${path.module}/lambda.zip"
+# }
+ 
 resource "aws_lambda_function" "health_check" {
-  filename         = data.archive_file.lambda.output_path
+  filename         = "${path.root}/lambda_function.zip"  # Changed this line
   function_name    = var.function_name
   role            = aws_iam_role.lambda.arn
   handler         = "health_check.lambda_handler"
-  source_code_hash = data.archive_file.lambda.output_base64sha256
+  source_code_hash = filebase64sha256("${path.root}/lambda_function.zip")  # Changed this line
   runtime         = "python3.11"
   timeout         = 10
-
+ 
   environment {
     variables = {
       DYNAMODB_TABLE = var.dynamodb_table_name
     }
   }
-
+ 
   tags = {
     Environment = var.environment
     ManagedBy   = "Terraform"
