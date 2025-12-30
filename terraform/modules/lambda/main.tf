@@ -1,8 +1,8 @@
-# data "archive_file" "lambda" {
-#   type        = "zip"
-#   source_dir  = var.source_dir
-#   output_path = "${path.module}/lambda.zip"
-# }
+ data "archive_file" "lambda" {
+   type        = "zip"
+   source_dir  = var.source_dir
+   output_path = "${path.module}/lambda.zip"
+ }
 
 resource "aws_lambda_function" "health_check" {
   filename         = "${path.root}/lambda_function.zip" # Changed this line
