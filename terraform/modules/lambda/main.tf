@@ -1,25 +1,28 @@
-data "archive_file" "lambda_zip" {
+data "archive_file" "lambda" {
   type        = "zip"
-  source_file = "${path.module}/../../lambda/health_check.py"
+  source_dir  = var.source_dir
   output_path = "${path.module}/lambda.zip"
 }
 
 resource "aws_lambda_function" "health_check" {
+  filename         = data.archive_file.lambda.output_path
   function_name    = var.function_name
-  role             = var.role_arn
-  handler          = "health_check.lambda_handler"
-  runtime          = var.runtime
-  timeout          = var.timeout
-  memory_size      = var.memory_size
-
-  filename         = data.archive_file.lambda_zip.output_path
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  role            = aws_iam_role.lambda.arn
+  handler         = "health_check.lambda_handler"
+  source_code_hash = data.archive_file.lambda.output_base64sha256
+  runtime         = "python3.11"
+  timeout         = 10
 
   environment {
-    variables = var.environment_variables
+    variables = {
+      DYNAMODB_TABLE = var.dynamodb_table_name
+    }
   }
 
-  tags = var.tags
+  tags = {
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
 }
 
 resource "aws_iam_role" "lambda" {
