@@ -1,7 +1,7 @@
 locals {
-  dynamodb_table_name = "${var.environment}-requests-db"
+  dynamodb_table_name  = "${var.environment}-requests-db"
   lambda_function_name = "${var.environment}-${var.project_name}-function"
-  api_gateway_name = "${var.environment}-${var.project_name}-api"
+  api_gateway_name     = "${var.environment}-${var.project_name}-api"
 }
 
 module "dynamodb" {
@@ -22,10 +22,10 @@ module "api_gateway" {
 module "lambda" {
   source = "./modules/lambda"
 
-  function_name              = local.lambda_function_name
-  environment                = var.environment
-  source_dir                 = "${path.root}/../lambda"
-  dynamodb_table_name        = module.dynamodb.table_name
-  dynamodb_table_arn         = module.dynamodb.table_arn
-  api_gateway_execution_arn  = module.api_gateway.execution_arn
+  function_name             = local.lambda_function_name
+  environment               = var.environment
+  source_dir                = "${path.root}/../lambda"
+  dynamodb_table_name       = module.dynamodb.table_name
+  dynamodb_table_arn        = module.dynamodb.table_arn
+  api_gateway_execution_arn = module.api_gateway.execution_arn
 }
