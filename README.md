@@ -3,7 +3,7 @@
 <!-- HEADER STYLE: CLASSIC CLEAN -->
 <div align="center">
 
-<h1>🚦 SERVERLESS-HEALTH-CHECK</h1>
+<img src="serverless-health-check-logo.png" width="522" alt="serverless-health-check Mascot" />
 
 <em>Ensure System Uptime, Instantly and Reliably</em>
 
@@ -49,7 +49,8 @@
 </div>
 
 
----
+
+
 
 # Serverless Health Check API
 
