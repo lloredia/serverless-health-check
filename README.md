@@ -1,65 +1,53 @@
-<div id="top">
+<div id="top"></div>
 
-<!-- HEADER STYLE: CLASSIC -->
+<!-- HEADER STYLE: CLASSIC CLEAN -->
 <div align="center">
 
-# SERVERLESS-HEALTH-CHECK
+<h1>🚦 SERVERLESS-HEALTH-CHECK</h1>
 
 <em>Ensure System Uptime, Instantly and Reliably</em>
 
+<br>
 
+<!-- REPO BADGES -->
+<p>
+  <img src="https://img.shields.io/github/last-commit/lloredia/serverless-health-check?style=flat&logo=git&logoColor=white&color=0080ff" alt="Last Commit">
+  <img src="https://img.shields.io/github/languages/top/lloredia/serverless-health-check?style=flat&color=0080ff" alt="Top Language">
+  <img src="https://img.shields.io/github/languages/count/lloredia/serverless-health-check?style=flat&color=0080ff" alt="Language Count">
+</p>
 
+<br>
 
-
+<!-- TOOLS & TECH STACK -->
 <em>Built with the tools and technologies:</em>
 
+<!-- ☁️ CLOUD SERVICES -->
+<h4>☁️ Cloud Services</h4>
+<p>
+  <img src="https://img.shields.io/badge/AWS%20Lambda-FF9900.svg?style=flat&logo=AWS-Lambda&logoColor=white" alt="AWS Lambda">
+  <img src="https://img.shields.io/badge/AWS%20S3-569A31.svg?style=flat&logo=Amazon-S3&logoColor=white" alt="AWS S3">
+  <img src="https://img.shields.io/badge/AWS%20RDS-527FFF.svg?style=flat&logo=Amazon-RDS&logoColor=white" alt="AWS RDS">
+  <img src="https://img.shields.io/badge/AWS%20CloudWatch-FF4F8B.svg?style=flat&logo=Amazon-CloudWatch&logoColor=white" alt="AWS CloudWatch">
+</p>
 
+<!-- ⚙️ AUTOMATION / DEVOPS -->
+<h4>⚙️ Automation / DevOps</h4>
+<p>
+  <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat&logo=GitHub-Actions&logoColor=white" alt="GitHub Actions">
+  <img src="https://img.shields.io/badge/Terraform-844FBA.svg?style=flat&logo=Terraform&logoColor=white" alt="Terraform">
+  <img src="https://img.shields.io/badge/API-FF6600.svg?style=flat&logo=fastapi&logoColor=white" alt="API">
+</p>
 
-
-
-
-
-
-
-
-
-
-<!-- BADGES -->
-<img src="https://img.shields.io/github/last-commit/lloredia/serverless-health-check?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-<img src="https://img.shields.io/github/languages/top/lloredia/serverless-health-check?style=flat&color=0080ff" alt="repo-top-language">
-<img src="https://img.shields.io/github/languages/count/lloredia/serverless-health-check?style=flat&color=0080ff" alt="repo-language-count">
-
-<em>Built with the tools and technologies:</em>
-
-<!-- ☁️ Cloud Services -->
-**Cloud:**
-<br>
-<img src="https://img.shields.io/badge/AWS%20Lambda-FF9900.svg?style=flat&logo=AWS-Lambda&logoColor=white" alt="AWS Lambda">
-<img src="https://img.shields.io/badge/AWS%20S3-569A31.svg?style=flat&logo=Amazon-S3&logoColor=white" alt="AWS S3">
-<img src="https://img.shields.io/badge/AWS%20RDS-527FFF.svg?style=flat&logo=Amazon-RDS&logoColor=white" alt="AWS RDS">
-<img src="https://img.shields.io/badge/AWS%20CloudWatch-FF4F8B.svg?style=flat&logo=Amazon-CloudWatch&logoColor=white" alt="AWS CloudWatch">
-
-<!-- ⚙️ Automation / DevOps -->
-<br><br>
-**Automation / DevOps:**
-<br>
-<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat&logo=GitHub-Actions&logoColor=white" alt="GitHub Actions">
-<img src="https://img.shields.io/badge/Terraform-844FBA.svg?style=flat&logo=Terraform&logoColor=white" alt="Terraform">
-<img src="https://img.shields.io/badge/API-FF6600.svg?style=flat&logo=api&logoColor=white" alt="API">
-
-<!-- 👨‍💻 Languages / Markup -->
-<br><br>
-**Languages / Markup:**
-<br>
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" alt="Markdown">
-<img src="https://img.shields.io/badge/Shell%20Script-121011.svg?style=flat&logo=gnu-bash&logoColor=white" alt="Shell Script">
-
-
-
+<!-- 💻 LANGUAGES / MARKUP -->
+<h4>💻 Languages / Markup</h4>
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" alt="Markdown">
+  <img src="https://img.shields.io/badge/Shell-121011.svg?style=flat&logo=gnu-bash&logoColor=white" alt="Shell Script">
+</p>
 
 </div>
-<br>
+
 
 ---
 
