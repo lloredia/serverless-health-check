@@ -43,7 +43,7 @@ A staging & production-ready serverless health check API built with AWS Lambda, 
        │
        ▼
 ┌─────────────────────┐      ┌──────────────────┐
-│  Lambda Function    │─────▶│   DynamoDB       │
+│  Lambda Function    │─────▶│   DynamoDB      │
 │  (Python 3.11)      │      │  (Request Store) │
 └─────────┬───────────┘      └──────────────────┘
           │
