@@ -3,7 +3,7 @@
 <!-- HEADER STYLE: CLASSIC CLEAN -->
 <div align="center">
 
-<img src="docs/logo.svg" width="200" alt="Serverless Health Check Logo" />
+<img src="docs/serverless-health-check-logo-v2.svg" width="200" alt="Serverless Health Check Logo" />
 
 <h1>⚡ Serverless Health Check API</h1>
 
