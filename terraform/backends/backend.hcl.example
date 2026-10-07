@@ -1,0 +1,11 @@
+# Shared shape for the S3 backend.
+# Copy to staging.hcl or prod.hcl (those names are gitignored) and replace
+# the bucket. Keep one lock table for every environment. Give each
+# environment its own state key. Never set dynamodb_table to the
+# application table (staging-requests-db or prod-requests-db).
+
+bucket         = "REPLACE-me-serverless-health-check-tfstate"
+key            = "serverless-health-check/ENV/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "serverless-health-check-tf-locks"
+encrypt        = true

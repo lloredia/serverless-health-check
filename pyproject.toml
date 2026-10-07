@@ -1,0 +1,20 @@
+[tool.pytest.ini_options]
+pythonpath = ["lambda"]
+testpaths = ["tests"]
+addopts = "--cov=health_check --cov-report=term-missing --cov-fail-under=90"
+
+[tool.coverage.run]
+branch = true
+source = ["health_check"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["lambda", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

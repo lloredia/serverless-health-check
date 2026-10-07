@@ -1,9 +1,9 @@
 variable "table_name" {
-  description = "Name of the DynamoDB table"
+  description = "Name of the DynamoDB table."
   type        = string
 }
 
 variable "environment" {
-  description = "Environment name"
+  description = "Environment name."
   type        = string
 }

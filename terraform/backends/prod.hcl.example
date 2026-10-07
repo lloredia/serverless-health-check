@@ -1,0 +1,5 @@
+bucket         = "REPLACE-me-serverless-health-check-tfstate"
+key            = "serverless-health-check/prod/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "serverless-health-check-tf-locks"
+encrypt        = true
