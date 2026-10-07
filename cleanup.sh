@@ -1,26 +1,65 @@
-#!/bin/bash
-ENV="staging"
+#!/usr/bin/env bash
+# Best-effort teardown for one environment when Terraform state is unavailable.
+# Prefer:
+#   terraform -chdir=terraform init -backend-config=backends/<env>.hcl
+#   terraform -chdir=terraform destroy -var-file=environments/<env>.tfvars
+#
+# This script does not delete the Terraform state bucket or the lock table.
+# Usage: ./cleanup.sh [staging|prod]
 
-echo "Deleting Lambda function..."
-aws lambda delete-function --function-name ${ENV}-health-check-function --region us-east-1 2>/dev/null || true
+set -u
 
-echo "Deleting Log Group..."
-aws logs delete-log-group --log-group-name /aws/lambda/${ENV}-health-check-function --region us-east-1 2>/dev/null || true
+ENV="${1:-staging}"
+REGION="${AWS_REGION:-us-east-1}"
+PROJECT="health-check"
+FUNCTION="${ENV}-${PROJECT}-function"
+ROLE="${FUNCTION}-role"
+TABLE="${ENV}-requests-db"
+API_NAME="${ENV}-${PROJECT}-api"
+TOPIC_NAME="${ENV}-${PROJECT}-alerts"
 
-echo "Detaching policies from IAM role..."
-for policy in $(aws iam list-attached-role-policies --role-name ${ENV}-health-check-function-role --query 'AttachedPolicies[].PolicyArn' --output text 2>/dev/null); do
-  aws iam detach-role-policy --role-name ${ENV}-health-check-function-role --policy-arn $policy
+echo "Cleaning ${ENV} in ${REGION}"
+
+aws lambda delete-function --function-name "$FUNCTION" --region "$REGION" 2>/dev/null || true
+
+aws logs delete-log-group --log-group-name "/aws/lambda/${FUNCTION}" --region "$REGION" 2>/dev/null || true
+aws logs delete-log-group --log-group-name "/aws/apigateway/${API_NAME}" --region "$REGION" 2>/dev/null || true
+
+if policies="$(aws iam list-attached-role-policies --role-name "$ROLE" --query 'AttachedPolicies[].PolicyArn' --output text 2>/dev/null)"; then
+  for policy in $policies; do
+    if [ -n "$policy" ] && [ "$policy" != "None" ]; then
+      aws iam detach-role-policy --role-name "$ROLE" --policy-arn "$policy" || true
+    fi
+  done
+fi
+
+if policies="$(aws iam list-role-policies --role-name "$ROLE" --query 'PolicyNames[]' --output text 2>/dev/null)"; then
+  for policy in $policies; do
+    if [ -n "$policy" ] && [ "$policy" != "None" ]; then
+      aws iam delete-role-policy --role-name "$ROLE" --policy-name "$policy" || true
+    fi
+  done
+fi
+
+aws iam delete-role --role-name "$ROLE" 2>/dev/null || true
+
+API_IDS="$(aws apigatewayv2 get-apis --region "$REGION" --query "Items[?Name=='${API_NAME}'].ApiId" --output text 2>/dev/null || true)"
+for API_ID in $API_IDS; do
+  if [ -n "$API_ID" ] && [ "$API_ID" != "None" ]; then
+    aws apigatewayv2 delete-api --api-id "$API_ID" --region "$REGION" || true
+  fi
 done
 
-echo "Deleting inline policies..."
-for policy in $(aws iam list-role-policies --role-name ${ENV}-health-check-function-role --query 'PolicyNames[]' --output text 2>/dev/null); do
-  aws iam delete-role-policy --role-name ${ENV}-health-check-function-role --policy-name $policy
-done
+aws dynamodb delete-table --table-name "$TABLE" --region "$REGION" 2>/dev/null || true
 
-echo "Deleting IAM role..."
-aws iam delete-role --role-name ${ENV}-health-check-function-role 2>/dev/null || true
+aws cloudwatch delete-alarms --region "$REGION" --alarm-names \
+  "${FUNCTION}-errors" \
+  "${API_NAME}-5xx" \
+  2>/dev/null || true
 
-echo "Deleting DynamoDB table..."
-aws dynamodb delete-table --table-name ${ENV}-requests-db --region us-east-1 2>/dev/null || true
+TOPIC_ARN="$(aws sns list-topics --region "$REGION" --query "Topics[?contains(TopicArn, ':${TOPIC_NAME}')].TopicArn" --output text 2>/dev/null || true)"
+if [ -n "${TOPIC_ARN}" ] && [ "${TOPIC_ARN}" != "None" ]; then
+  aws sns delete-topic --topic-arn "$TOPIC_ARN" || true
+fi
 
-echo "Cleanup complete!"
+echo "Cleanup finished. The state bucket and lock table were left in place."

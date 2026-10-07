@@ -1,0 +1,7 @@
+aws_region           = "us-east-1"
+github_org           = "lloredia"
+github_repo          = "serverless-health-check"
+project_name         = "health-check"
+state_bucket_name    = "REPLACE-me-serverless-health-check-tfstate"
+lock_table_name      = "serverless-health-check-tf-locks"
+create_oidc_provider = true

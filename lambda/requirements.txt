@@ -1,1 +1,4 @@
-boto3>=1.26.0
+# The Lambda Python 3.11 runtime provides boto3.
+# Application code uses the standard library and boto3 only.
+# Do not vendor dependencies into the deployment zip.
+boto3>=1.34.0

@@ -1,3 +1,11 @@
-environment  = "prod"
-aws_region   = "us-east-1"
-project_name = "health-check"
+environment                    = "prod"
+aws_region                     = "us-east-1"
+project_name                   = "health-check"
+log_retention_days             = 14
+reserved_concurrent_executions = 10
+record_ttl_days                = 30
+check_dynamodb                 = true
+describe_cache_ttl_seconds     = 30
+throttle_rate_limit            = 10
+throttle_burst_limit           = 20
+post_auth_type                 = "AWS_IAM"
